@@ -7,7 +7,7 @@ def compare_requested_series_from_github(comparison_path, top_n=2):
     df_comparison = load_file(comparison_path)
 
     results = []
-    for idx, row in df_comparison.iterrows():
+    for _, row in df_comparison.iterrows():
         comparison_series = normalize_series(row["Series"])
         matches = []
         for _, master_row in df_master.iterrows():
