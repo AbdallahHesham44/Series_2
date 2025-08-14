@@ -9,6 +9,13 @@ from python_script import (
     delete_from_series_rules
 )
 
+from helper import (
+    load_file,
+    similarity_ratio,
+    normalize_series
+
+)
+
 
 # ===== Streamlit Config =====
 st.set_page_config(page_title="Series Comparison Tool", layout="wide")
