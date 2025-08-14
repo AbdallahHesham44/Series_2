@@ -1,21 +1,7 @@
-import streamlit as st
-import tempfile
-import os
-from python_script import (
-    compare_requested_series_from_github,  # ✅ added
-    update_master_series,
-    delete_from_master_series,
-    update_series_rules,
-    delete_from_series_rules
-)
+import pandas as pd
+from helper import load_file, similarity_ratio, normalize_series
 
-from helper import (
-    load_file,
-    similarity_ratio,
-    normalize_series
-
-)
-
+# GitHub raw URLs
 MASTER_URL = "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/MasterSeriesHistory.xlsx"
 RULES_URL = "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/SampleSeriesRules.xlsx"
 
@@ -37,6 +23,9 @@ def compare_requested_series_from_github(comparison_path, top_n=2):
         results.append({"Requested": comparison_series, "Matches": top_matches})
 
     return pd.DataFrame(results)
+
+# Other update/delete functions can stay here...
+
 def update_master_series(update_path, master_path):
     df_update = load_file(update_path)
     df_master = load_file(master_path)
