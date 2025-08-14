@@ -14,10 +14,10 @@ def compare_requested_series_from_github(comparison_path, top_n=2):
 
     results = []
     for _, row in df_comparison.iterrows():
-        comparison_series = normalize_series(row["Series"])
+        comparison_series = normalize_series(row["RequestedSeries"])
         matches = []
         for _, master_row in df_master.iterrows():
-            master_series = normalize_series(master_row["Series"])
+            master_series = normalize_series(master_row["RequestedSeries"])
             ratio = similarity_ratio(comparison_series, master_series)
             matches.append((master_series, ratio))
         matches.sort(key=lambda x: x[1], reverse=True)
@@ -37,7 +37,7 @@ def update_master_series(update_path, master_path):
 def delete_from_master_series(delete_path, master_path):
     df_delete = load_file(delete_path)
     df_master = load_file(master_path)
-    df_master = df_master[~df_master["Series"].isin(df_delete["Series"])]
+    df_master = df_master[~df_master["RequestedSeries"].isin(df_delete["Series"])]
     df_master.to_excel(master_path, index=False)
 
 def update_series_rules(update_path, rules_path):
