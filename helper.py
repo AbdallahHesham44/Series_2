@@ -4,21 +4,18 @@ from difflib import SequenceMatcher
 import io
 import os
 
-def load_file(file_path):
-    """
-    Load CSV or Excel file from local path or GitHub raw URL.
-    """
-    if file_path.startswith("http://") or file_path.startswith("https://"):
-        response = requests.get(file_path)
-        response.raise_for_status()
-        file_bytes = io.BytesIO(response.content)
-        if file_path.endswith(".csv"):
-            return pd.read_csv(file_bytes)
-        return pd.read_excel(file_bytes)
+from io import BytesIO
+
+def load_file(url):
+    response = requests.get(url)
+    response.raise_for_status()
+
+    if url.endswith(".xlsx") or url.endswith(".xls"):
+        return pd.read_excel(BytesIO(response.content), engine="openpyxl")
+    elif url.endswith(".csv"):
+        return pd.read_csv(BytesIO(response.content))
     else:
-        if file_path.endswith(".csv"):
-            return pd.read_csv(file_path)
-        return pd.read_excel(file_path)
+        raise ValueError("Unsupported file type")
 
 def similarity_ratio(a, b):
     """Return similarity ratio as percentage with 2 decimal places."""
