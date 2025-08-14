@@ -6,13 +6,23 @@ import os
 
 from io import BytesIO
 
-def load_file(url):
-    response = requests.get(url)
+def load_file(path_or_url):
+    """Load file from local path or URL."""
+    if os.path.exists(path_or_url):  # ✅ Local file
+        if path_or_url.endswith((".xlsx", ".xls")):
+            return pd.read_excel(path_or_url, engine="openpyxl")
+        elif path_or_url.endswith(".csv"):
+            return pd.read_csv(path_or_url)
+        else:
+            raise ValueError("Unsupported file type")
+
+    # Otherwise assume it's a URL
+    response = requests.get(path_or_url)
     response.raise_for_status()
 
-    if url.endswith(".xlsx") or url.endswith(".xls"):
+    if path_or_url.endswith((".xlsx", ".xls")):
         return pd.read_excel(BytesIO(response.content), engine="openpyxl")
-    elif url.endswith(".csv"):
+    elif path_or_url.endswith(".csv"):
         return pd.read_csv(BytesIO(response.content))
     else:
         raise ValueError("Unsupported file type")
