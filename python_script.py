@@ -2,8 +2,9 @@ import pandas as pd
 from helper import load_file, similarity_ratio, normalize_series
 
 # GitHub raw URLs
-MASTER_URL = "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/MasterSeriesHistory.xlsx"
-RULES_URL = "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/SampleSeriesRules.xlsx"
+MASTER_URL = "https://github.com/AbdallahHesham44/Series_2/blob/main/MasterSeriesHistory.xlsx" #"https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/MasterSeriesHistory.xlsx"
+RULES_URL = "https://github.com/AbdallahHesham44/Series_2/blob/main/SampleSeriesRules.xlsx"
+
 
 def compare_requested_series_from_github(comparison_path, top_n=2):
     df_master = load_file(MASTER_URL)
