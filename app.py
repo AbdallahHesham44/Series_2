@@ -2,12 +2,13 @@ import streamlit as st
 import tempfile
 import os
 from python_script import (
-    compare_requested_series,
+    compare_requested_series_from_github,  # ✅ added
     update_master_series,
     delete_from_master_series,
     update_series_rules,
     delete_from_series_rules
 )
+
 
 # ===== Streamlit Config =====
 st.set_page_config(page_title="Series Comparison Tool", layout="wide")
