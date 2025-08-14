@@ -34,20 +34,14 @@ def save_uploaded_file(uploaded_file):
 
 # ===== Compare Series =====
 if menu == "Compare Series":
-    st.subheader("Compare Requested Series")
-    master_file = st.file_uploader("Upload MasterSeriesHistory file", type=["xlsx", "xls", "csv"])
+    st.subheader("Compare Requested Series (GitHub Master & Rules)")
     comparison_file = st.file_uploader("Upload Comparison file", type=["xlsx", "xls", "csv"])
-    rules_file = st.file_uploader("Upload Rules file (optional)", type=["xlsx", "xls", "csv"])
-
-    top_n = st.number_input("Top N series to show in MostUsedSeries", min_value=1, max_value=10, value=2)
+    top_n = st.number_input("Top N series to show", min_value=1, max_value=10, value=2)
 
     if st.button("Run Comparison"):
-        if master_file and comparison_file:
-            master_path = save_uploaded_file(master_file)
+        if comparison_file:
             comparison_path = save_uploaded_file(comparison_file)
-            rules_path = save_uploaded_file(rules_file) if rules_file else None
-
-            df_result = compare_requested_series(master_path, comparison_path, rules_path, top_n=top_n)
+            df_result = compare_requested_series_from_github(comparison_path, top_n=top_n)
 
             st.success("✅ Comparison completed!")
             st.dataframe(df_result)
@@ -57,8 +51,7 @@ if menu == "Compare Series":
             with open(output_path, "rb") as f:
                 st.download_button("Download Result Excel", f, file_name="comparison_result.xlsx")
         else:
-            st.error("Please upload both Master and Comparison files.")
-
+            st.error("Please upload a Comparison file.")
 # ===== Update Master =====
 elif menu == "Update Master Series History":
     st.subheader("Update Master Series History")
