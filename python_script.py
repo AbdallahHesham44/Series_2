@@ -2,7 +2,7 @@ import pandas as pd
 from helper import load_file, similarity_ratio, normalize_series
 
 # GitHub raw URLs# GitHub raw URLs (✅ fixed from blob to raw)
-MASTER_URL = "https://raw.githubusercontent.com/AbdallahHesham44/Series_2/refs/heads/main/MasterSeriesHistory.xlsx"
+MASTER_URL = "https://raw.githubusercontent.com/AbdallahHesham44/Series_2/refs/heads/main/SampleMasterSeriesHistory.xlsx"
 RULES_URL = "https://raw.githubusercontent.com/AbdallahHesham44/Series_2/refs/heads/main/SampleSeriesRules.xlsx"
 
 
